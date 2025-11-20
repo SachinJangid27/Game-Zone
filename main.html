@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Zone</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script> -->
+</head>
+
+<body>
+
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+      <span class="logo-red">Game</span><span class="logo-white">Zone</span>
+    </div>
+
+
+
+
+    <div className="flex ">
+      
+      <a 
+      href="#about"
+        class="bg-dark dark:bg-dark-2 border-dark dark:border-dark-2 border  mr-4 rounded-full inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-white hover:bg-body-color hover:border-body-color disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5">
+        About
+      </a>
+
+      <a href="contact page.html"
+        class="bg-dark dark:bg-dark-2 border-dark dark:border-dark-2 border  mr-4  rounded-full inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-white hover:bg-body-color hover:border-body-color disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5">
+        Contact
+      </a>
+
+      <a href="loginPage.html"
+        class="bg-dark dark:bg-dark-2 border-dark dark:border-dark-2 border rounded-full inline-flex items-center justify-center py-3 px-7 text-center text-base font-medium text-white hover:bg-body-color hover:border-body-color disabled:bg-gray-3 disabled:border-gray-3 disabled:text-dark-5">
+        Login
+      </a>
+    </div>
+
+    <!-- </div> -->
+
+    <!-- </div> -->
+
+
+
+
+  </header>
+
+  <!-- Background Video -->
+  <video autoplay muted loop class="game" id="bg-video">
+    <source src="mario bg.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Carousel Section -->
+  <div class="carousel object-fit">
+    <div class="carousel-track">
+      
+      <img src="img2.jpg" alt="Game 2">
+     
+
+      <!-- Add Video Here -->
+      <!-- <video autoplay muted loop>
+        <source src="game15 vid.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>  -->
+        
+       <video autoplay muted loop>
+        <source src="mario video.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video></div>
+
+    </div>
+    <!-- Navigation Buttons
+    <button class="carousel-btn prev">&#10094;</button>
+    <button class="carousel-btn next">&#10095;</button>
+  </div> -->
+
+  <!-- Main Content -->
+  <main>
+    <h2>+ NEW GAMES</h2>
+    <div class="game-grid">
+      <div class="game-card" onclick="window.location.href='game1.html'">
+        <img src="game1rock-paper-scissors.avif" alt="Game 1">
+      </div>
+
+      <div class="game-card" onclick="window.location.href='game2index.html'">
+        <img src="game2img.png" alt="Game 2">
+      </div>
+      <div class="game-card">
+        <a href="https://play.famobi.com/om-nom-run"><img src="game3.png" alt="Game 3"></a>
+      </div>
+      <div class="game-card">
+        <a href="https://play.famobi.com/cannon-balls-3d"><img src="game4.png" alt="Game 4"></a>
+      </div>
+      <div class="game-card">
+        <a href="Snake Game/index.html"><img src="game5img.jpg" alt="Game 5"></a>Snake
+      </div>
+      <div class="game-card">
+        <a href="https://play.famobi.com/moto-x3m-pool-party"><img src="game6.png" alt="Game 6"></a>
+            </div>
+             <div class="game-card">
+        <a href="https://play.famobi.com/archery-world-tour"><img src="game7.png" alt="Game 7"></a>
+            </div>
+             <div class="game-card">
+        <a href="https://play.famobi.com/speed-master"><img src="game8.png" alt="Game 8"></a>
+            </div>
+             <div class="game-card">
+        <a href="https://play.famobi.com/bubble-tower-3d"><img src="game9.png" alt="Game 9"></a>
+            </div>
+             <div class="game-card">
+        <a href="https://play.famobi.com/8-ball-billiards-classic"><img src="game10.png" alt="Game 10"></a>
+            </div>
+             <div class="game-card">
+        <a href="https://play.famobi.com/gold-rush"><img src="game11.png" alt="Game 11"></a>
+            </div>
+           <div class="game-card">
+        <a href="https://play.famobi.com/gold-rush"><img src="game12.png" alt="Game 12"></a>
+            </div>
+               <div class="game-card">
+        <a href="https://play.famobi.com/traffic-tom"><img src="game13.png" alt="Game 13"></a>
+            </div>
+               <div class="game-card">
+        <a href="https://play.famobi.com/super-plumber-run "><img src="game14.png" alt="Game 14"></a>
+            </div>
+               <div class="game-card">
+        <a href="https://play.famobi.com/endless-truck"><img src="game15.png" alt="Game 15"></a>
+            </div>
+            
+        </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
+
+
+<!-- ===== About Section ===== -->
+<section id="about" class="about-section">
+  <div class="about-container">
+    <h2>About Game Zone</h2>
+    <p>
+      Game Zone is a browser-based gaming platform that brings together classic and casual games
+      in one place. Players can enjoy solo matches against smart bots multiplayer modes. With
+      features like score tracking, leaderboards, and cross-device
+      support, Game Zone provides a simple, fun, and engaging experience for all ages.
+    </p>
+    <ul class="about-features">
+      <li><strong>🎮 Multiplayer & Bot Modes</strong> — Play with Bot.</li>
+      <li><strong>🏆 Scoreboards</strong> — Track progress and compete globally.</li>
+      <li><strong>📱 Cross-Device</strong> — Works on desktop, tablet & mobile.</li>
+    </ul>
+  </div>
+
+  <div class="about-footer">
+    <p>© <span id="year"></span> Game Zone. All rights reserved.</p>
+  </div>
+</section>
+
+<!-- Script to update year -->
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+</body>
+
+</html>

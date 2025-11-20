@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock Paper Scissors</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(135deg, #7f7fd5, #86a8e7, #91eae4);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: #af3e3e;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.25);
+      animation: fadeInDown 1s ease;
+    }
+
+    p {
+      font-size: 1.2rem;
+      text-align: center;
+      margin: 1rem 0;
+      color: #333;
+    }
+
+    .game-container {
+      background: rgba(255,255,255,0.95);
+      padding: 2rem;
+      border-radius: 25px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      animation: fadeInUp 1s ease;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem 0;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-size: 2.5rem;
+      border: none;
+      padding: 1rem;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: transform 0.25s, box-shadow 0.25s;
+      width: 90px;
+      height: 90px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: rgba(255,255,255,0.15);
+      transform: rotate(45deg);
+      transition: all 0.5s;
+    }
+
+    button:hover::after {
+      left: 100%;
+      top: 100%;
+    }
+
+    button:hover {
+      transform: scale(1.15);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    #rock { background: linear-gradient(135deg, #0d47a1, #1976d2); }
+    #paper { background: linear-gradient(135deg, #b71c1c, #f44336); }
+    #scissors { background: linear-gradient(135deg, #1b5e20, #4caf50); }
+
+    #result {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #222;
+      text-align: center;
+      margin-top: 1rem;
+      animation: fadeIn 0.5s ease;
+    }
+
+    #computer-choice {
+      color: #444;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    #computer-move-emoji {
+      display: block;
+      font-size: 3rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 12px;
+      color: white;
+      margin: 0.5rem auto 1.5rem;
+      text-align: center;
+      width: fit-content;
+      transition: transform 0.3s ease;
+      animation: popIn 0.4s ease;
+    }
+
+    #computer-move-emoji:empty {
+      display: none;
+    }
+
+    #scores {
+      font-size: 1.2rem;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    #user-score {
+      color: #0d47a1;
+      font-weight: bold;
+    }
+
+    #computer-score {
+      color: #b71c1c;
+      font-weight: bold;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      button {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+      }
+
+      #computer-move-emoji {
+        font-size: 2.3rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="game-container">
+    <h1>Rock Paper Scissors</h1>
+    <p>Choose your move:</p>
+
+    <div class="buttons">
+      <button id="rock">👊</button>
+      <button id="paper">🖐</button>
+      <button id="scissors">✌</button>
+    </div>
+
+    <p id="result">Make a move to start!</p>
+    <p id="computer-choice"></p>
+    <div id="computer-move-emoji"></div>
+
+    <p id="scores">
+      Your score: <span id="user-score">0</span> |
+      Computer score: <span id="computer-score">0</span>
+    </p>
+  </div>
+
+  <script>
+    const buttons = document.querySelectorAll('button');
+    const resultEl = document.getElementById("result");
+    const computerChoiceEl = document.getElementById("computer-choice");
+    const computerMoveEmojiEl = document.getElementById("computer-move-emoji");
+    const playerScoreEl = document.getElementById("user-score");
+    const computerScoreEl = document.getElementById("computer-score");
+
+    let playerScore = 0;
+    let computerScore = 0;
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        const playerChoice = button.id;
+        const computerChoice = computerPlay();
+        const result = playRound(playerChoice, computerChoice);
+
+        resultEl.textContent = result;
+        computerChoiceEl.textContent = `Computer chose: ${capitalize(computerChoice)}`;
+        updateComputerMoveDisplay(computerChoice);
+      });
+    });
+
+    function computerPlay() {
+      const choices = ["rock", "paper", "scissors"];
+      return choices[Math.floor(Math.random() * choices.length)];
+    }
+
+    function playRound(player, computer) {
+      if (player === computer) {
+        return "It's a tie!";
+      } else if (
+        (player === "rock" && computer === "scissors") ||
+        (player === "paper" && computer === "rock") ||
+        (player === "scissors" && computer === "paper")
+      ) {
+        playerScore++;
+        playerScoreEl.textContent = playerScore;
+        return `You win! ${capitalize(player)} beats ${capitalize(computer)}.`;
+      } else {
+        computerScore++;
+        computerScoreEl.textContent = computerScore;
+        return `You lose! ${capitalize(computer)} beats ${capitalize(player)}.`;
+      }
+    }
+
+    function updateComputerMoveDisplay(choice) {
+      computerMoveEmojiEl.textContent = getEmoji(choice);
+      computerMoveEmojiEl.style.background = getBackground(choice);
+    }
+
+    function capitalize(word) {
+      return word.charAt(0).toUpperCase() + word.slice(1);
+    }
+
+    function getEmoji(choice) {
+      switch (choice) {
+        case "rock": return "👊";
+        case "paper": return "🖐";
+        case "scissors": return "✌";
+      }
+    }
+
+    function getBackground(choice) {
+      switch (choice) {
+        case "rock": return "linear-gradient(135deg,#0d47a1,#1976d2)";
+        case "paper": return "linear-gradient(135deg,#b71c1c,#f44336)";
+        case "scissors": return "linear-gradient(135deg,#1b5e20,#4caf50)";
+        default: return "#999";
+      }
+    }
+  </script>
+</body>
+</html>

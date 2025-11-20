@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Game Zone</title>
+  <script type="module">
+    // ✅ Import Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } 
+      from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // ✅ Correct Firebase project config
+    const firebaseConfig = {
+      apiKey: "AIzaSyCztcp98VKR6xaFqDV6eFeqmvy2CrHykGI",
+      authDomain: "game-zone-acb1f.firebaseapp.com",
+      projectId: "game-zone-acb1f",
+      storageBucket: "game-zone-acb1f.appspot.com",   // ✅ fixed
+      messagingSenderId: "1047207797848",
+      appId: "1:1047207797848:web:0352c869c3756b4056d62d",
+      measurementId: "G-EXKDDHVSS3"
+    };
+
+    // ✅ Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      const loginBtn = document.getElementById("loginBtn");
+      const signupBtn = document.getElementById("signupBtn");
+      const closeBtn = document.getElementById("closeBtn");
+      const email = document.getElementById("email");
+      const password = document.getElementById("password");
+
+      // 🔹 Login with Firebase
+      loginBtn.addEventListener("click", () => {
+        if (!email.value || !password.value) {
+          alert("⚠️ Please fill in both fields.");
+          return;
+        }
+        signInWithEmailAndPassword(auth, email.value, password.value)
+          .then(userCredential => {
+            alert("✅ Welcome back, " + userCredential.user.email);
+            window.location.href = "main.html"; // redirect
+          })
+          .catch(error => {
+            alert("❌ " + error.message);
+          });
+      });
+
+      // 🔹 Sign Up with Firebase
+      signupBtn.addEventListener("click", () => {
+        if (!email.value || !password.value) {
+          alert("⚠️ Please fill in both fields.");
+          return;
+        }
+        createUserWithEmailAndPassword(auth, email.value, password.value)
+          .then(userCredential => {
+            alert("🎉 Account created for " + userCredential.user.email);
+            window.location.href = "main.html"; // redirect
+          })
+          .catch(error => {
+            alert("❌ " + error.message);
+          });
+      });
+
+      // 🔹 Close button → go back to homepage
+      closeBtn.addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+    });
+  </script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      background: #0f0f1a;
+      color: #fff;
+    }
+    #bg-video { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; }
+    body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 0, 30, 0.7); z-index: -1; }
+    header { width: 100%; padding: 15px 40px; display: flex; justify-content: flex-start; align-items: center; position: absolute; top: 0; left: 0; z-index: 2; }
+    .logo { font-size: 28px; font-weight: bold; letter-spacing: 2px; }
+    .logo-red { color: #ff0080; }
+    .logo-white { color: #ffffff; }
+    .login-container { position: relative; background: rgba(25, 20, 50, 0.85); backdrop-filter: blur(12px); padding: 40px; border-radius: 15px; box-shadow: 0 0 25px rgba(100, 0, 255, 0.8); width: 320px; text-align: center; z-index: 1; animation: popUp 1s ease; }
+    @keyframes popUp { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .close-btn { position: absolute; top: 10px; right: 15px; font-size: 22px; font-weight: bold; color: #fff; cursor: pointer; transition: transform 0.3s, color 0.3s; }
+    .close-btn:hover { color: #ff4c4c; transform: rotate(90deg); }
+    .login-container h2 { margin-bottom: 20px; font-size: 26px; text-transform: uppercase; letter-spacing: 2px; background: linear-gradient(90deg, #ff0080, #7928ca, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .login-container input { width: 80%; padding: 12px; margin: 12px 0; border: none; border-radius: 6px; outline: none; background: rgba(255,255,255,0.1); color: #fff; transition: 0.3s; }
+    .login-container input:focus { background: rgba(255,255,255,0.2); box-shadow: 0 0 10px #6a49d8; }
+    .login-container button { width: 80%; padding: 12px; margin-top: 12px; background: linear-gradient(135deg, #ff0080, #7928ca, #00d4ff); border: none; color: #fff; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: all 0.3s ease-in-out; box-shadow: 0 0 15px rgba(106, 73, 216, 0.8); }
+    .login-container button:hover { transform: scale(1.07); box-shadow: 0 0 25px #ff0080, 0 0 35px #00d4ff; }
+    .login-container p { margin-top: 18px; font-size: 14px; color: #ccc; }
+    .login-container a { color: #00d4ff; font-weight: bold; text-decoration: none; transition: color 0.3s; }
+    .login-container a:hover { color: #ff0080; text-shadow: 0 0 10px #ff0080; }
+  </style>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="mario bg.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
+  <!-- Header -->
+  <header>
+    <div class="logo"><span class="logo-red">Game</span><span class="logo-white">Zone</span></div>
+  </header>
+
+  <!-- Login Box -->
+  <div class="login-container" id="loginBox">
+    <span class="close-btn" id="closeBtn">&times;</span>
+    <h2>Login / Sign Up</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <button id="loginBtn">Login</button>
+    <button id="signupBtn">Sign Up</button>
+    <p>Forgot password? <a href="#">Reset</a></p>
+  </div>
+</body>
+</html>
